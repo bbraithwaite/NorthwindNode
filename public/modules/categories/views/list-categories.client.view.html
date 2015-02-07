@@ -1,0 +1,14 @@
+<section data-ng-controller="CategoriesController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Categories</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="category in categories" data-ng-href="#!/categories/{{category._id}}" class="list-group-item">
+			<h4 class="list-group-item-heading" data-ng-bind="category.name"></h4>
+            <span data-ng-bind="category.description"></span>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!categories.$resolved || categories.length">
+    	No categories yet, why don't you <a href="/#!/categories/create">create one</a>?
+    </div>
+</section>
