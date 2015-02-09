@@ -8,6 +8,11 @@ angular.module('categories').controller('CategoriesController', ['$scope', '$sta
 	  	$scope.pageSize = 10;
 	  	$scope.offset = 0;
 
+	  	// Page changed handler
+	  	$scope.pageChanged = function() {
+	   	$scope.offset = ($scope.currentPage - 1) * $scope.pageSize;
+	  	};
+
 		// Create new Category
 		$scope.create = function() {
 			// Create new Category object
