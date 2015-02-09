@@ -11,7 +11,7 @@
             <span>{{(categories | filter: { _id: product.category })[0].name }}</span>
         </a>
     </div>
-    <pagination total-items="products.length" ng-model="currentPage" ng-change="pageChanged()" max-size="pageSize"></pagination>
+    <pagination total-items="products.length" ng-model="currentPage" ng-change="pageChanged()" max-size="pageSize" ng-show="products.length > pageSize"></pagination>
     <div class="alert alert-warning text-center" data-ng-hide="!products.$resolved || products.length">
     	No Products yet, why don't you <a href="/#!/products/create">create one</a>?
     </div>
