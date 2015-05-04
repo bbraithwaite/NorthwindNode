@@ -57,7 +57,13 @@ module.exports = function(modelName, sortBy) {
 			});
 		},
 		list: function(req, res) {
-			Model.find().sort(sortBy).exec(function(err, models) {
+			var query = {};
+			if (req.query.filter) {
+				// TODO: extend this to handle multiple filters
+				query = req.query.filter;
+			}
+
+			Model.find(query).sort(sortBy).exec(function(err, models) {
 				if (err) {
 					return res.status(400).send({
 						message: errorHandler.getErrorMessage(err)

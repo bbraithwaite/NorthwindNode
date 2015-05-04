@@ -5,14 +5,14 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 	function($scope, $stateParams, $location, Authentication, Products, Categories) {
 		$scope.authentication = Authentication;
 		$scope.categories = Categories.query();
-	  	$scope.currentPage = 1;
-	  	$scope.pageSize = 10;
-	  	$scope.offset = 0;
+		$scope.currentPage = 1;
+		$scope.pageSize = 10;
+		$scope.offset = 0;
 
-	  	// Page changed handler
-	  	$scope.pageChanged = function() {
-	   	$scope.offset = ($scope.currentPage - 1) * $scope.pageSize;
-	  	};
+			// Page changed handler
+		$scope.pageChanged = function() {
+			$scope.offset = ($scope.currentPage - 1) * $scope.pageSize;
+		};
 
 		// Create new Product
 		$scope.create = function() {
@@ -38,7 +38,7 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 
 		// Remove existing Product
 		$scope.remove = function(product) {
-			if ( product ) { 
+			if ( product ) {
 				product.$remove();
 
 				for (var i in $scope.products) {
@@ -71,7 +71,7 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 
 		// Find existing Product
 		$scope.findOne = function() {
-			$scope.product = Products.get({ 
+			$scope.product = Products.get({
 				productId: $stateParams.productId
 			});
 		};

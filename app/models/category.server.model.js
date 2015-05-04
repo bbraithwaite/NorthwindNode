@@ -27,8 +27,7 @@ var CategorySchema = new Schema({
 		unique : true,
 		required: 'name cannot be blank',
 		validate: [validation.len(15), 'name must be 15 chars in length or less']
-	},
-	products : [{ type: Schema.Types.ObjectId, ref: 'Product' }]
+	}
 });
 
 mongoose.model('Category', CategorySchema);
