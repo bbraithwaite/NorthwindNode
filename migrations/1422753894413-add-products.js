@@ -97,7 +97,11 @@ exports.up = function(next) {
 	var options = {
 		method: 'get',
 		json: true,
-		url: 'http://localhost:3000/categories'
+		url: 'http://localhost:3000/categories',
+    auth: {
+      user: 'admin',
+      pass: 'password'
+    }
 	};
 
 	request(options, function (err, response) {
@@ -133,7 +137,11 @@ function saveProducts(categories, next) {
   			method: 'POST',
   			body: product,
   			json: true,
-  			url: 'http://localhost:3000/products'
+  			url: 'http://localhost:3000/products',
+  			auth: {
+		      user: 'admin',
+		      pass: 'password'
+		    }
 		};
 
 		request(options, function (err, response) {

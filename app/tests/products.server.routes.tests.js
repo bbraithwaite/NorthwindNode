@@ -4,14 +4,35 @@ var should = require('should'),
 	request = require('supertest'),
 	app = require('../../server'),
 	productApi = require('./models.server.routes.tests.api')(app, 'Product','/products/'),
-	categoryApi = require('./models.server.routes.tests.api')(app, 'Category', '/categories/');
+	categoryApi = require('./models.server.routes.tests.api')(app, 'Category', '/categories/'),
+	mongoose = require('mongoose'),
+	User = mongoose.model('User');
 
 /**
  * Unit tests
  */
 describe('Product API', function() {
 
-	describe('unauthenticated crete request with', function() {
+	before(function(done) {
+		var user = new User({
+			firstName: 'Full',
+			lastName: 'Name',
+			displayName: 'Full Name',
+			email: 'test@test.com',
+			username: 'username',
+			password: 'password',
+			provider: 'local'
+		});
+
+		user.save(done);
+	});
+
+	after(function(done) {
+		User.remove().exec();
+		done();
+	});
+
+	describe('authenticated crete request with', function() {
 		var product = {
 			name: 'Chai',
 			quantityPerUnit: '10 boxes x 20 bags',
@@ -118,7 +139,7 @@ describe('Product API', function() {
 		});
 	});
 
-	describe('unauthenticated get request with', function() {
+	describe('authenticated get request with', function() {
 
 		describe('no parameters', function() {
 			var products = [];
@@ -193,7 +214,7 @@ describe('Product API', function() {
 		});
 	});
 
-	describe('unauthenticated update request with', function() {
+	describe('authenticated update request with', function() {
 		
 		var product = {
 			name: 'Chai'
@@ -298,7 +319,7 @@ describe('Product API', function() {
 		});
 	});
 
-	describe('unauthenticated delete request with', function() {
+	describe('authenticated delete request with', function() {
 
 		var products = [];
 

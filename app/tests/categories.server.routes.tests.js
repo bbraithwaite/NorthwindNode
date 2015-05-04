@@ -3,14 +3,35 @@
 var should = require('should'),
 	request = require('supertest'),
 	app = require('../../server'),
-	api = require('./models.server.routes.tests.api')(app, 'Category', '/categories/');
+	api = require('./models.server.routes.tests.api')(app, 'Category', '/categories/'),
+	mongoose = require('mongoose'),
+	User = mongoose.model('User');
 
 /**
  * Unit tests
  */
 describe('Category API', function() {
 
-	describe('unauthenticated create request with', function(done) {
+	before(function(done) {
+		var user = new User({
+			firstName: 'Full',
+			lastName: 'Name',
+			displayName: 'Full Name',
+			email: 'test@test.com',
+			username: 'username',
+			password: 'password',
+			provider: 'local'
+		});
+
+		user.save(done);
+	});
+
+	after(function(done) {
+		User.remove().exec();
+		done();
+	});
+
+	describe('authenticated create request with', function(done) {
 
 		var category = {
 			name: 'Beverages',
@@ -38,7 +59,7 @@ describe('Category API', function() {
 				response.body.should.have.property('description', category.description);
 			});
 
-			it('is saved in database', function(done) {	
+			it('is saved in database', function(done) {
 				api.get(response.body._id, function(res) {
 					res.statusCode.should.equal(200);
 					res.body.should.have.property('name', category.name);
@@ -100,7 +121,7 @@ describe('Category API', function() {
 					// make second call with duplicate name
 					api.create(category, function (res) {
 						response = res;
-						done();	
+						done();
 					});
 				});
 			});
@@ -119,7 +140,7 @@ describe('Category API', function() {
 		});
 	});
 
-	describe('unauthenticated get request with', function() {
+	describe('authenticated get request with', function() {
 
 		var categories = [];
 
@@ -187,7 +208,7 @@ describe('Category API', function() {
 		});
 	});
 
-	describe('unauthenticated update request with', function() {
+	describe('authenticated update request with', function() {
 		
 		var category = {
 			name: 'Beverages',
@@ -319,7 +340,7 @@ describe('Category API', function() {
 		});
 	});
 
-	describe('unauthenticated delete request with', function() {
+	describe('authenticated delete request with', function() {
 
 		var categories = [];
 

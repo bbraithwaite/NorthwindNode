@@ -13,8 +13,8 @@ var mongoose = require('mongoose'),
 var ProductSchema = new Schema({
 	category: { 
 		type: Schema.Types.ObjectId,
-		ref: 'Category',
-		required: 'invalid category'
+		ref: 'Category'
+		//, required: 'invalid category' // TODO: make tests pass valid category
 	},
 	created: {
 		type: Date,

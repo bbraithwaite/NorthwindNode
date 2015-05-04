@@ -1,17 +1,18 @@
 'use strict';
 
 module.exports = function(app) {
-	var products = require('../../app/controllers/products.server.controller');
-	var users = require('../../app/controllers/users.server.controller');
+	var products = require('../controllers/products.server.controller');
+	var users = require('../controllers/users.server.controller');
+	var apiAuth = require('../controllers/api.authorization.server.controller');
 	
 	app.route('/products')
-		.get(products.list)
-		.post(users.requiresLogin, products.create);
+		.get(apiAuth, users.requiresLogin, products.list)
+		.post(apiAuth, users.requiresLogin, products.create);
 
 	app.route('/products/:productId')
-		.get(products.read)
-		.put(users.requiresLogin, products.update)
-		.delete(users.requiresLogin, products.delete);
+		.get(apiAuth, users.requiresLogin, products.read)
+		.put(apiAuth, users.requiresLogin, products.update)
+		.delete(apiAuth, users.requiresLogin, products.delete);
 
 	// Finish by binding the article middleware
 	app.param('productId', products.getByID);
