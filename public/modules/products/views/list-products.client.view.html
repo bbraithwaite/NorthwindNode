@@ -8,7 +8,7 @@
     <div class="list-group">
         <a data-ng-repeat="product in products | limitTo: offset - products.length | limitTo: pageSize" data-ng-href="#!/products/{{product._id}}" class="list-group-item" data-num-pages="numPages()">
 			<h4 class="list-group-item-heading" data-ng-bind="product.name"></h4>
-            <span>{{(categories | filter: { _id: product.category })[0].name }}</span>
+            <span>{{ product.category.name }}</span>
         </a>
     </div>
     <pagination total-items="products.length" ng-model="currentPage" ng-change="pageChanged()" max-size="pageSize" ng-show="products.length > pageSize"></pagination>

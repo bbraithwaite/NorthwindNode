@@ -1,7 +1,7 @@
 <section data-ng-controller="ProductsController" data-ng-init="findOne()">
 	<div class="page-header">
 		<h1 data-ng-bind="product.name"></h1>
-		<p>{{(categories | filter: { _id: product.category })[0].name }}</p>
+		<p>{{ product.category.name }}</p>
 	</div>
 	<div class="pull-right">
 		<a class="btn btn-primary" href="/#!/products/{{product._id}}/edit">
