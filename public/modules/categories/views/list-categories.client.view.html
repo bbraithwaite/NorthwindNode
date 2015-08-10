@@ -11,7 +11,7 @@
             <span data-ng-bind="category.description"></span>
         </a>
     </div>
-    <pagination total-items="categories.length" ng-model="currentPage" ng-change="pageChanged()" max-size="pageSize" ng-show="categories.length > pageSize"></pagination>
+    <pagination total-items="categories.length" ng-model="currentPage" ng-change="pageChanged()" items-per-page="pageSize" ng-show="categories.length > pageSize"></pagination>
     <div class="alert alert-warning text-center" data-ng-hide="!categories.$resolved || categories.length">
     	No categories yet, why don't you <a href="/#!/categories/create">create one</a>?
     </div>
